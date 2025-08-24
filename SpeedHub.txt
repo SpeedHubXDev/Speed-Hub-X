@@ -1,0 +1,78 @@
+--// Services
+local Players = game:GetService("Players")
+local CoreGui = game:GetService("CoreGui")
+local player = Players.LocalPlayer
+
+--// Cleanup old GUI
+if CoreGui:FindFirstChild("MentrovaxKeyGUI") then
+    CoreGui.MentrovaxKeyGUI:Destroy()
+end
+
+--// Create GUI
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "MentrovaxKeyGUI"
+ScreenGui.Parent = CoreGui
+ScreenGui.ResetOnSpawn = false
+
+-- Background Frame
+local Frame = Instance.new("Frame")
+Frame.Size = UDim2.new(0, 400, 0, 200)
+Frame.Position = UDim2.new(0.5, -200, 0.5, -100)
+Frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+Frame.BorderSizePixel = 0
+Frame.AnchorPoint = Vector2.new(0.5, 0.5)
+Frame.Parent = ScreenGui
+Frame.Active = true
+Frame.Draggable = true
+
+-- Title
+local Title = Instance.new("TextLabel")
+Title.Size = UDim2.new(1, 0, 0, 50)
+Title.Position = UDim2.new(0, 0, 0, 0)
+Title.BackgroundTransparency = 1
+Title.Text = "Speed Hub X"
+Title.Font = Enum.Font.GothamBold
+Title.TextSize = 28
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.Parent = Frame
+
+-- Key TextBox
+local KeyBox = Instance.new("TextBox")
+KeyBox.Size = UDim2.new(0, 300, 0, 40)
+KeyBox.Position = UDim2.new(0.5, -150, 0.5, -20)
+KeyBox.PlaceholderText = "Enter Key Here"
+KeyBox.Text = ""
+KeyBox.ClearTextOnFocus = true
+KeyBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+KeyBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+KeyBox.Font = Enum.Font.Gotham
+KeyBox.TextSize = 22
+KeyBox.Parent = Frame
+
+-- Submit Button
+local Submit = Instance.new("TextButton")
+Submit.Size = UDim2.new(0, 150, 0, 40)
+Submit.Position = UDim2.new(0.5, -75, 0.75, -20)
+Submit.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+Submit.Text = "Submit"
+Submit.Font = Enum.Font.GothamBold
+Submit.TextSize = 22
+Submit.TextColor3 = Color3.fromRGB(255, 255, 255)
+Submit.Parent = Frame
+
+-- Correct key
+local correctKey = "MentrovaxIsTheBestFarming"
+
+-- Button functionality
+Submit.MouseButton1Click:Connect(function()
+    if KeyBox.Text == correctKey then
+        -- Load main script
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()
+        ScreenGui:Destroy()
+    else
+        -- Wrong key feedback
+        KeyBox.Text = ""
+        KeyBox.PlaceholderText = "Wrong Key! Try Again"
+        KeyBox.TextColor3 = Color3.fromRGB(255, 0, 0)
+    end
+end)
